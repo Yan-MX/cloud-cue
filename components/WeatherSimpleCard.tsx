@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { WeatherData } from '../types/api';
+import { Ionicons } from '@expo/vector-icons';
 
 interface WeatherCardProps {
   city: string;
@@ -9,7 +10,7 @@ interface WeatherCardProps {
 }
 
 const { width } = Dimensions.get('window');
-const cardWidth = width * 0.9;
+const cardWidth = width * 0.85;
 
 export default function WeatherSimpleCard({ weather, city }: WeatherCardProps) {
   const router = useRouter();
@@ -21,16 +22,27 @@ export default function WeatherSimpleCard({ weather, city }: WeatherCardProps) {
   };
 
   return (
-    <TouchableOpacity onPress={handlePress}>
+    <TouchableOpacity onPress={handlePress} style={styles.cardContainer}>
+      <View style={styles.yellowAccent} />
       <View style={[styles.card, { width: cardWidth }]}>
-        <Text style={styles.location}>{city}</Text>
-        <View style={styles.currentWeather}>
+        <View style={styles.header}>
+          <Text style={styles.location}>{city}</Text>
           <Text style={styles.temperature}>{Math.round(weather.temperature)}°C</Text>
         </View>
-        <Text style={styles.description}>{weather.summaryDescription}</Text>
+
         <View style={styles.details}>
-          <Text>Humidity: {weather.humidity}%</Text>
-          <Text>Wind: {weather.windSpeed} m/s</Text>
+          <View style={styles.detailRow}>
+            <Ionicons name="water" size={16} color="#0000DE" />
+            <Text style={styles.detailText}>{weather.humidity}%</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Ionicons name="speedometer" size={16} color="#DE0000" />
+            <Text style={styles.detailText}>{weather.windSpeed} m/s</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Ionicons name="thermometer-outline" size={16} color="#FFD700" />
+            <Text style={styles.detailText}>{weather.feelsLike}°C</Text>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -38,35 +50,55 @@ export default function WeatherSimpleCard({ weather, city }: WeatherCardProps) {
 }
 
 const styles = StyleSheet.create({
+  cardContainer: {
+    position: 'relative',
+    marginBottom: 16,
+  },
   card: {
-    backgroundColor: 'white',
-    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 2,
+    borderColor: '#000000',
     padding: 16,
-    marginVertical: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    height: 110,
+  },
+  yellowAccent: {
+    position: 'absolute',
+    top: 4,
+    right: -4,
+    width: 8,
+    height: '100%',
+    backgroundColor: '#FFD700',
+    zIndex: -1,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
   },
   location: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  currentWeather: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 8,
+    fontSize: 20,
+    fontWeight: '700',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
   },
   temperature: {
-    fontSize: 32,
-    fontWeight: 'bold',
-  },
-  description: {
-    fontSize: 16,
-    color: '#666',
+    fontSize: 24,
+    fontWeight: '700',
   },
   details: {
-    marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    gap: 16,
+  },
+  detailRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  detailText: {
+    marginLeft: 8,
+    fontSize: 14,
+    color: '#000000',
+    fontWeight: '500',
   },
 });

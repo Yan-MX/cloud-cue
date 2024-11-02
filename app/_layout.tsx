@@ -1,11 +1,11 @@
-import { SplashScreen, Stack, useNavigation, useRouter } from 'expo-router';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { WeatherProvider } from '../context/WeatherContext';
+
 export default function AppLayout() {
-  const router = useRouter();
-  const navigation = useNavigation();
-  const loaded = true; // Assuming loaded is true for simplicity
+  const loaded = true;
 
   useEffect(() => {
     if (loaded) {
@@ -13,28 +13,45 @@ export default function AppLayout() {
     }
   }, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
-
-  const currentRouteName = navigation.getState().routes[navigation.getState().index]?.name;
+  if (!loaded) return null;
 
   return (
-    <WeatherProvider >
+    <WeatherProvider>
       <Stack
         screenOptions={{
-          header: ({ navigation }) => (
+          headerShown: true,
+          headerTransparent: true,
+          header: ({ navigation, route }) => (
             <View style={styles.header}>
-              {currentRouteName !== 'index' && (
-                <Button title="Back" onPress={() => router.back()} />
+              {route.name !== 'index' && (
+                <TouchableOpacity 
+                  onPress={() => navigation.goBack()} 
+                  style={styles.backButton}
+                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                >
+                  <View style={styles.backButtonInner}>
+                    <Ionicons name="arrow-back" size={24} color="#000000" />
+                  </View>
+                </TouchableOpacity>
               )}
-              <Text style={styles.headerTitle}>App Header</Text>
+              <View style={styles.headerAccent} />
             </View>
           ),
         }}
       >
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="[location]" />
+        <Stack.Screen 
+          name="index" 
+          options={{ 
+            headerShown: false 
+          }} 
+        />
+        <Stack.Screen 
+          name="[location]" 
+          options={{
+            headerShown: true,
+            title: '',
+          }}
+        />
       </Stack>
     </WeatherProvider>
   );
@@ -44,14 +61,28 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     padding: 16,
-    backgroundColor: '#f8f8f8',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    paddingTop: 50,
+    position: 'relative',
   },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
+  headerAccent: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 4,
+    backgroundColor: '#DE0000',
+  },
+  backButton: {
+    zIndex: 10,
+  },
+  backButtonInner: {
+    width: 40,
+    height: 40,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 2,
+    borderColor: '#000000',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
