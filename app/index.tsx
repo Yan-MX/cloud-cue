@@ -1,42 +1,39 @@
-import { Image, StyleSheet, Platform, View } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link } from 'expo-router';
 
 const Home = () => {
   return (
-
-      <View>
-      <ThemedText type="title">Home!</ThemedText>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Home!</Text>
       <Link
         href={{
           pathname: '/[location]',
-          params: {  location: 'berlin' }
-        }}>
-          See weather detail based on location
-        </Link>
-    </View>
+          params: { location: 'berlin' }
+        }}
+      >
+        <Text style={styles.link}>See weather detail based on location</Text>
+      </Link>
+    </SafeAreaView>
   );
 }
+
 export default Home;
+
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
+    padding: 16,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  link: {
+    fontSize: 18,
+    color: 'blue',
   },
 });

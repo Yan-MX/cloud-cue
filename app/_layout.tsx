@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
-import { SplashScreen, Stack, useRouter, useRootNavigationState } from 'expo-router';
+import { SplashScreen, Stack, useRouter, useNavigation } from 'expo-router';
 import { ThemeProvider } from '@react-navigation/native';
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
 
-export default function AppLayout({ }) {
+export default function AppLayout() {
   const colorScheme = useColorScheme();
   const router = useRouter();
+  const navigation = useNavigation();
   const loaded = true; // Assuming loaded is true for simplicity
 
   useEffect(() => {
@@ -20,8 +21,7 @@ export default function AppLayout({ }) {
     return null;
   }
 
-  const state = useRootNavigationState();
-  const currentRouteName = state && state.index !== undefined ? state.routes[state.index]?.name : undefined;
+  const currentRouteName = navigation.getState().routes[navigation.getState().index]?.name;
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -29,9 +29,10 @@ export default function AppLayout({ }) {
         screenOptions={{
           header: ({ navigation }) => (
             <View style={styles.header}>
-              {currentRouteName === '[location]' && (
+              {currentRouteName !== 'index' && (
                 <Button title="Back" onPress={() => router.back()} />
               )}
+              <Text style={styles.headerTitle}>App Header</Text>
             </View>
           ),
         }}
