@@ -8,7 +8,6 @@ export async function fetchSunriseData(
   lon: number
 ): Promise<SunriseData> {
   try {
-    console.log("lat: " + lat, "lon: " + lon);
     const response = await fetch(`${SUNRISE_BASE_URL}?lat=${lat}&lon=${lon}`, {
       headers: {
         // Format required by API, see https://docs.api.met.no/doc/GettingStarted

@@ -39,10 +39,6 @@ export default function WeatherSimpleCard({ weather, city }: WeatherCardProps) {
             <Ionicons name="speedometer" size={16} color="#DE0000" />
             <Text style={styles.detailText}>{weather.windSpeed} m/s</Text>
           </View>
-          <View style={styles.detailRow}>
-            <Ionicons name="thermometer-outline" size={16} color="#FFD700" />
-            <Text style={styles.detailText}>{weather.feelsLike}°C</Text>
-          </View>
         </View>
       </View>
     </TouchableOpacity>

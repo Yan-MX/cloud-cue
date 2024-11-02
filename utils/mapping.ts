@@ -35,6 +35,8 @@ export function transformWeatherData(
     temperatureMin: next6Hours.air_temperature_min ?? 0,
     lat: lat,
     lon: lon,
+    airPressure: details.air_pressure_at_sea_level,
+    ultravioletIndex: details.ultraviolet_index_clear_sky,
   };
 }
 

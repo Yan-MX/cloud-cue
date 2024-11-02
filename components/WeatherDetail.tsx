@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { WeatherData, SunriseData } from '../types/api';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { WeatherData, SunriseData } from '../types/api';
 
 interface WeatherDetailProps {
   weatherData: WeatherData;
@@ -11,8 +10,12 @@ interface WeatherDetailProps {
 }
 
 const WeatherDetail: React.FC<WeatherDetailProps> = ({ weatherData, sunriseData, city }) => {
+  const dayLengthMs = new Date(sunriseData.sunsetTime).getTime() - new Date(sunriseData.sunriseTime).getTime();
+  const dayLengthHours = Math.floor(dayLengthMs / (1000 * 60 * 60));
+  const dayLengthMinutes = Math.floor((dayLengthMs % (1000 * 60 * 60)) / (1000 * 60));
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.backgroundShapes}>
         <View style={styles.circle} />
         <View style={styles.rectangle} />
@@ -29,10 +32,6 @@ const WeatherDetail: React.FC<WeatherDetailProps> = ({ weatherData, sunriseData,
           <Text style={styles.detail}>Temperature: {weatherData.temperature}°C</Text>
         </View>
         <View style={styles.weatherRow}>
-          <Ionicons name="thermometer-outline" size={28} color="#000000" />
-          <Text style={styles.detail}>Feels like: {weatherData.feelsLike}°C</Text>
-        </View>
-        <View style={styles.weatherRow}>
           <Ionicons name="water" size={28} color="#000000" />
           <Text style={styles.detail}>Humidity: {weatherData.humidity}%</Text>
         </View>
@@ -41,16 +40,16 @@ const WeatherDetail: React.FC<WeatherDetailProps> = ({ weatherData, sunriseData,
           <Text style={styles.detail}>Wind Speed: {weatherData.windSpeed} m/s</Text>
         </View>
         <View style={styles.weatherRow}>
-          <Ionicons name="compass" size={28} color="#000000" />
-          <Text style={styles.detail}>Wind Direction: {weatherData.windDeg}°</Text>
-        </View>
-        <View style={styles.weatherRow}>
           <Ionicons name="cloud-outline" size={28} color="#000000" />
           <Text style={styles.detail}>Description: {weatherData.summaryDescription}</Text>
         </View>
         <View style={styles.weatherRow}>
-          <Ionicons name="eye-outline" size={28} color="#000000" />
-          <Text style={styles.detail}>Visibility: {weatherData.visibility / 1000} km</Text>
+          <Ionicons name="beer-outline" size={28} color="#000000" />
+          <Text style={styles.detail}>Air Pressure: {weatherData.airPressure} hPa</Text>
+        </View>
+        <View style={styles.weatherRow}>
+          <Ionicons name="sunny-outline" size={28} color="#000000" />
+          <Text style={styles.detail}>UV Index: {weatherData.ultravioletIndex}</Text>
         </View>
       </View>
 
@@ -72,20 +71,19 @@ const WeatherDetail: React.FC<WeatherDetailProps> = ({ weatherData, sunriseData,
         <View style={styles.weatherRow}>
           <Ionicons name="time-outline" size={28} color="#000000" />
           <Text style={styles.detail}>
-            Day Length: {Math.round((sunriseData.sunsetTime - sunriseData.sunriseTime) / (1000 * 60 * 60))}h
+          Day Length: {dayLengthHours}h {dayLengthMinutes}m
           </Text>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-    padding: 20,
-    paddingTop: 100,
+    padding: 16,
+    paddingVertical: 120,
   },
   backgroundShapes: {
     position: 'absolute',

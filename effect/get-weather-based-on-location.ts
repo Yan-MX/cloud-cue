@@ -7,7 +7,6 @@ export async function fetchWeatherData(
   lon: number
 ): Promise<WeatherData> {
   try {
-    console.log("lat: " + lat, "lon: " + lon);
     const response = await fetch(`${WEATHER_BASE_URL}?lat=${lat}&lon=${lon}`, {
       headers: {
         // Format required by API, see https://docs.api.met.no/doc/GettingStarted

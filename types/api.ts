@@ -7,12 +7,16 @@ export interface WeatherData {
   summaryDescription: string;
   lat: number;
   lon: number;
+  airPressure: number;
+  ultravioletIndex: number;
 }
 
 export interface WeatherDetails {
   air_temperature: number;
   relative_humidity: number;
   wind_speed: number;
+  ultraviolet_index_clear_sky: number;
+  air_pressure_at_sea_level
 }
 
 export interface TimePeriod {
