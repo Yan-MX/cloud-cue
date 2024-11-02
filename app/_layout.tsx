@@ -1,12 +1,8 @@
+import { SplashScreen, Stack, useNavigation, useRouter } from 'expo-router';
 import { useEffect } from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
-import { SplashScreen, Stack, useRouter, useNavigation } from 'expo-router';
-import { ThemeProvider } from '@react-navigation/native';
-import { DarkTheme, DefaultTheme } from '@react-navigation/native';
-import { useColorScheme } from 'react-native';
-
+import { Button, StyleSheet, Text, View } from 'react-native';
+import { WeatherProvider } from '../context/WeatherContext';
 export default function AppLayout() {
-  const colorScheme = useColorScheme();
   const router = useRouter();
   const navigation = useNavigation();
   const loaded = true; // Assuming loaded is true for simplicity
@@ -24,7 +20,7 @@ export default function AppLayout() {
   const currentRouteName = navigation.getState().routes[navigation.getState().index]?.name;
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <WeatherProvider >
       <Stack
         screenOptions={{
           header: ({ navigation }) => (
@@ -40,7 +36,7 @@ export default function AppLayout() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="[location]" />
       </Stack>
-    </ThemeProvider>
+    </WeatherProvider>
   );
 }
 

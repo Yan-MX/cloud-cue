@@ -27,3 +27,12 @@ export interface SunriseData {
   lat: number;
   lon: number;
 }
+export interface MyLocation {
+  lat: number;
+  lon: number;
+  name: string;
+}
+
+export interface WeatherDataByLocation {
+  [name: string]: WeatherData | null;
+}

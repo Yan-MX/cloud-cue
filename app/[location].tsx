@@ -2,41 +2,25 @@ import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import WeatherDetail from "../components/WeatherDetail";
+import { useWeather } from "../context/WeatherContext";
 import { fetchSunriseData } from "../effect/get-sunrise-based-on-location";
-import { fetchWeatherData } from "../effect/get-weather-based-on-location";
 import { SunriseData, WeatherData } from "../types/api";
-import { getCurrentLocation } from "../utils/location";
 
 export default function WeatherDetailBasedOnLocation() {
-  const { location } = useLocalSearchParams();
-  //const router = useRouter();
-
   const [loadingWeatherData, setLoadingWeatherData] = useState(true);
   const [loadingSunriseData, setLoadingSunriseData] = useState(true);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-  const [sunriseData, setSunriseData] = useState<SunriseData | null>(null);
-
-  const loadWeatherData = async () => {
-    try {
-      const location = await getCurrentLocation();
-      const data = await fetchWeatherData(
-        location.latitude,
-        location.longitude
-      );
-      setWeatherData(data);
-    } catch (error) {
-      console.error("Error loading weather in detail page:", error);
-    } finally {
-      setLoadingWeatherData(false);
-    }
-  };
+  const { location } = useLocalSearchParams();
+  const { myLocations,weatherDataByLocation } = useWeather();
+  const currentLocation = myLocations.find((loc) => loc.name === location);
+  const currentWeatherData = weatherDataByLocation[currentLocation.name];
+const[sunriseData,setSunriseData]=useState<SunriseData | null>(null);
 
   const loadSunriseData = async () => {
     try {
-      const location = await getCurrentLocation();
       const data = await fetchSunriseData(
-        location.latitude,
-        location.longitude
+        currentLocation.lat,
+        currentLocation.lon
       );
       setSunriseData(data);
     } catch (error) {
@@ -47,13 +31,12 @@ export default function WeatherDetailBasedOnLocation() {
   };
 
   useEffect(() => {
-    loadWeatherData();
     loadSunriseData();
   }, []);
 
   return (
     <View style={styles.container}>
-  { weatherData && sunriseData &&  < WeatherDetail weatherData={weatherData} sunriseData={sunriseData} />}
+  { currentWeatherData && sunriseData &&  < WeatherDetail weatherData={currentWeatherData} sunriseData={sunriseData} />}
     </View>
   );
 }

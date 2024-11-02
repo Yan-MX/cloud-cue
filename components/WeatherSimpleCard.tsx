@@ -1,25 +1,29 @@
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { WeatherData } from '../types/api';
 
 interface WeatherCardProps {
+  city: string;
   weather: WeatherData;
 }
 
-export default function WeatherSimpleCard({ weather }: WeatherCardProps) {
+const { width } = Dimensions.get('window');
+const cardWidth = width * 0.9;
+
+export default function WeatherSimpleCard({ weather, city }: WeatherCardProps) {
   const router = useRouter();
 
   if (!weather) return null;
 
   const handlePress = () => {
-    const location = `${weather.lat},${weather.lon}`;
-    router.navigate(`/${location}`);
+    router.navigate(`/${city}`);
   };
 
   return (
     <TouchableOpacity onPress={handlePress}>
-      <View style={styles.card}>
-        <Text style={styles.location}>{weather.lat + ', ' + weather.lon}</Text>
+      <View style={[styles.card, { width: cardWidth }]}>
+        <Text style={styles.location}>{city}</Text>
         <View style={styles.currentWeather}>
           <Text style={styles.temperature}>{Math.round(weather.temperature)}°C</Text>
         </View>
@@ -38,6 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 12,
     padding: 16,
+    marginVertical: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,

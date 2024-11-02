@@ -1,43 +1,30 @@
-import { useEffect, useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
 import WeatherSimpleCard from '../components/WeatherSimpleCard';
-import { fetchWeatherData } from '../effect/get-weather-based-on-location';
-import { WeatherData } from '../types/api';
-import { getCurrentLocation } from '../utils/location';
+import { useWeather } from '../context/WeatherContext';
 
 const Home = () => {
-  const [loading, setLoading] = useState(true);
-  const locations = []
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const { weatherDataByLocation } = useWeather();
 
-  const loadWeatherData = async () => {
-    try {
-      const location = await getCurrentLocation();
-      const data = await fetchWeatherData(location.latitude, location.longitude);
-      setWeatherData(data);
-    } catch (error) {
-      console.error('Error loading weather:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadWeatherData();
-  }, []);
-
+  if (!weatherDataByLocation || Object.keys(weatherDataByLocation).length === 0) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text>Loading weather data...</Text>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
-      {loading &&  (
-        <Text>Loading weather data...</Text>
-      ) }
       <Text style={styles.title}>Cloud Cue</Text>
-     {weatherData&& <WeatherSimpleCard weather={weatherData} />}
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {Object.entries(weatherDataByLocation).map(([name, weatherData], index) => (
+          weatherData && <WeatherSimpleCard key={index} city={name} weather={weatherData} />
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
-}
+};
 
 export default Home;
 
@@ -48,13 +35,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
   },
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
-  },
-  link: {
-    fontSize: 18,
-    color: 'blue',
   },
 });
