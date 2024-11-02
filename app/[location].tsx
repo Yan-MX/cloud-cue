@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { getCurrentLocation } from "../utils/location";
+import { StyleSheet, View } from "react-native";
+import WeatherDetail from "../components/WeatherDetail";
+import { fetchSunriseData } from "../effect/get-sunrise-based-on-location";
 import { fetchWeatherData } from "../effect/get-weather-based-on-location";
 import { SunriseData, WeatherData } from "../types/api";
-import { fetchSunriseData } from "../effect/get-sunrise-based-on-location";
+import { getCurrentLocation } from "../utils/location";
 
 export default function WeatherDetailBasedOnLocation() {
   const { location } = useLocalSearchParams();
@@ -52,27 +53,7 @@ export default function WeatherDetailBasedOnLocation() {
 
   return (
     <View style={styles.container}>
-      {loadingWeatherData && loadingSunriseData ? (
-        <Text>Loading weather and sunrise data...</Text>
-      ) : loadingWeatherData ? (
-        <View>
-          <Text>{JSON.stringify(weatherData)}</Text>
-        </View>
-      ) : loadingSunriseData ? (
-        <View>
-          <Text>{JSON.stringify(sunriseData)}</Text>
-        </View>
-      ) : (
-        <View>
-          <Text>
-            {JSON.stringify(weatherData) + JSON.stringify(sunriseData)}
-          </Text>
-        </View>
-      )}
-      <View style={styles.content}>
-        <Text style={styles.title}>Weather Detail Based on Location</Text>
-        <Text>{location}</Text>
-      </View>
+  { weatherData && sunriseData &&  < WeatherDetail weatherData={weatherData} sunriseData={sunriseData} />}
     </View>
   );
 }

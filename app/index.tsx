@@ -1,13 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Link } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { getCurrentLocation } from '../utils/location';
+import { StyleSheet, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import WeatherSimpleCard from '../components/WeatherSimpleCard';
 import { fetchWeatherData } from '../effect/get-weather-based-on-location';
 import { WeatherData } from '../types/api';
+import { getCurrentLocation } from '../utils/location';
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
+  const locations = []
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
   const loadWeatherData = async () => {
@@ -29,22 +30,11 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {loading ? (
+      {loading &&  (
         <Text>Loading weather data...</Text>
-      ) : (
-        <View>
-          <Text>{ JSON.stringify(weatherData)  }</Text>
-        </View>
-      )}
-      <Text style={styles.title}>Home!</Text>
-      <Link
-        href={{
-          pathname: '/[location]',
-          params: { location: 'berlin' }
-        }}
-      >
-        <Text style={styles.link}>See weather detail based on location</Text>
-      </Link>
+      ) }
+      <Text style={styles.title}>Cloud Cue</Text>
+     {weatherData&& <WeatherSimpleCard weather={weatherData} />}
     </SafeAreaView>
   );
 }
