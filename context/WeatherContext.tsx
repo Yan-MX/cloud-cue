@@ -5,11 +5,11 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import {fetchWeatherData} from "../effect/get-weather-based-on-location";
-import {MyLocation, WeatherDataByLocation} from "../types/api";
-import {berlin, getCurrentLocation, london} from "../utils/location"; // Ensure these functions are correctly implemented and imported
+import { fetchWeatherData } from "@effect/get-weather-based-on-location";
+import { MyLocation, WeatherDataByLocation } from "@constant/api";
+import { berlin, getCurrentLocation, london } from "@utils/location"; // Ensure these functions are correctly implemented and imported
 
-import {Dispatch, SetStateAction} from "react";
+import { Dispatch, SetStateAction } from "react";
 
 interface WeatherContextProps {
   myLocations: MyLocation[];
@@ -36,7 +36,9 @@ interface WeatherProviderProps {
   children: ReactNode;
 }
 
-export const WeatherProvider: React.FC<WeatherProviderProps> = ({children}) => {
+export const WeatherProvider: React.FC<WeatherProviderProps> = ({
+  children,
+}) => {
   const [myLocations, setMyLocations] = useState<MyLocation[]>([
     berlin,
     london,

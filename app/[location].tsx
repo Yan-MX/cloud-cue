@@ -1,17 +1,18 @@
-import {useLocalSearchParams} from "expo-router";
-import {useEffect, useState} from "react";
-import {ActivityIndicator, StyleSheet, View} from "react-native";
-import WeatherDetail from "../components/WeatherDetail";
-import {useWeather} from "../context/WeatherContext";
-import {SunriseData} from "../types/api";
-import {fetchAndCacheSunriseData, getCachedSunriseData} from "../utils/cache";
-import Error from "../components/Error";
+import { useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
+import WeatherDetail from "@components/WeatherDetail";
+import { useWeather } from "@context/WeatherContext";
+import { fetchAndCacheSunriseData, getCachedSunriseData } from "@utils/cache";
+import Error from "@components/Error";
+import { SunriseData } from "@constant/api";
+
 export default function WeatherDetailBasedOnLocation() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loadingSunriseData, setLoadingSunriseData] = useState(true);
-  const {location} = useLocalSearchParams();
+  const { location } = useLocalSearchParams();
   const [errorSunrise, setErrorSunrise] = useState<string | null>(null);
-  const {myLocations, weatherDataByLocation} = useWeather();
+  const { myLocations, weatherDataByLocation } = useWeather();
   const currentLocation = myLocations.find((loc) => loc.name === location);
   const currentWeatherData = weatherDataByLocation[currentLocation.name];
   const [sunriseData, setSunriseData] = useState<SunriseData | null>(null);
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
+    paddingHorizontal: 16,
   },
   backgroundShapes: {
     position: "absolute",
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: "#0000DE",
     opacity: 0.1,
-    transform: [{rotate: "45deg"}],
+    transform: [{ rotate: "45deg" }],
   },
   loadingContainer: {
     flex: 1,

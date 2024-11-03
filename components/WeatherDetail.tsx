@@ -1,7 +1,7 @@
 import React from "react";
-import {ScrollView, StyleSheet, Text, View} from "react-native";
-import {Ionicons} from "@expo/vector-icons";
-import {WeatherData, SunriseData} from "../types/api";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { WeatherData, SunriseData } from "@constant/api";
 
 interface WeatherDetailProps {
   weatherData: WeatherData;
@@ -23,74 +23,76 @@ const WeatherDetail: React.FC<WeatherDetailProps> = ({
   );
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.backgroundShapes}>
-        <View style={styles.circle} />
-        <View style={styles.rectangle} />
-        <View style={styles.triangle} />
-      </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.backgroundShapes}>
+          <View style={styles.circle} />
+          <View style={styles.rectangle} />
+          <View style={styles.triangle} />
+        </View>
 
-      <Text style={styles.title}>{city}</Text>
+        <Text style={styles.title}>{city}</Text>
 
-      <View style={styles.card}>
-        <View style={styles.redAccent} />
-        <Text style={styles.sectionTitle}>Current Weather</Text>
-        <View style={styles.weatherRow}>
-          <Ionicons name="thermometer" size={28} color="#000000" />
-          <Text style={styles.detail}>
-            Temperature: {weatherData.temperature}°C
-          </Text>
+        <View style={styles.card}>
+          <View style={styles.redAccent} />
+          <Text style={styles.sectionTitle}>Current Weather</Text>
+          <View style={styles.weatherRow}>
+            <Ionicons name="thermometer" size={28} color="#000000" />
+            <Text style={styles.detail}>
+              Temperature: {weatherData.temperature}°C
+            </Text>
+          </View>
+          <View style={styles.weatherRow}>
+            <Ionicons name="water" size={28} color="#000000" />
+            <Text style={styles.detail}>Humidity: {weatherData.humidity}%</Text>
+          </View>
+          <View style={styles.weatherRow}>
+            <Ionicons name="speedometer" size={28} color="#000000" />
+            <Text style={styles.detail}>
+              Wind Speed: {weatherData.windSpeed} m/s
+            </Text>
+          </View>
+          <View style={styles.weatherRow}>
+            <Ionicons name="cloud-outline" size={28} color="#000000" />
+            <Text style={styles.detail}>
+              Description: {weatherData.summaryDescription}
+            </Text>
+          </View>
+          <View style={styles.weatherRow}>
+            <Ionicons name="beer-outline" size={28} color="#000000" />
+            <Text style={styles.detail}>
+              Air Pressure: {weatherData.airPressure} hPa
+            </Text>
+          </View>
+          <View style={styles.weatherRow}>
+            <Ionicons name="sunny-outline" size={28} color="#000000" />
+            <Text style={styles.detail}>
+              UV Index: {weatherData.ultravioletIndex}
+            </Text>
+          </View>
         </View>
-        <View style={styles.weatherRow}>
-          <Ionicons name="water" size={28} color="#000000" />
-          <Text style={styles.detail}>Humidity: {weatherData.humidity}%</Text>
-        </View>
-        <View style={styles.weatherRow}>
-          <Ionicons name="speedometer" size={28} color="#000000" />
-          <Text style={styles.detail}>
-            Wind Speed: {weatherData.windSpeed} m/s
-          </Text>
-        </View>
-        <View style={styles.weatherRow}>
-          <Ionicons name="cloud-outline" size={28} color="#000000" />
-          <Text style={styles.detail}>
-            Description: {weatherData.summaryDescription}
-          </Text>
-        </View>
-        <View style={styles.weatherRow}>
-          <Ionicons name="beer-outline" size={28} color="#000000" />
-          <Text style={styles.detail}>
-            Air Pressure: {weatherData.airPressure} hPa
-          </Text>
-        </View>
-        <View style={styles.weatherRow}>
-          <Ionicons name="sunny-outline" size={28} color="#000000" />
-          <Text style={styles.detail}>
-            UV Index: {weatherData.ultravioletIndex}
-          </Text>
-        </View>
-      </View>
 
-      <View style={styles.card}>
-        <View style={styles.blueAccent} />
-        <Text style={styles.sectionTitle}>Sun Times</Text>
-        <View style={styles.weatherRow}>
-          <Ionicons name="sunny-outline" size={28} color="#000000" />
-          <Text style={styles.detail}>
-            Sunrise: {new Date(sunriseData.sunriseTime).toLocaleTimeString()}
-          </Text>
-        </View>
-        <View style={styles.weatherRow}>
-          <Ionicons name="moon-outline" size={28} color="#000000" />
-          <Text style={styles.detail}>
-            Sunset: {new Date(sunriseData.sunsetTime).toLocaleTimeString()}
-          </Text>
-        </View>
-        <View style={styles.weatherRow}>
-          <Ionicons name="time-outline" size={28} color="#000000" />
-          <Text style={styles.detail}>
-            Day Length: {dayLengthHours}h {dayLengthMinutes}m
-          </Text>
+        <View style={styles.card}>
+          <View style={styles.blueAccent} />
+          <Text style={styles.sectionTitle}>Sun Times</Text>
+          <View style={styles.weatherRow}>
+            <Ionicons name="sunny-outline" size={28} color="#000000" />
+            <Text style={styles.detail}>
+              Sunrise: {new Date(sunriseData.sunriseTime).toLocaleTimeString()}
+            </Text>
+          </View>
+          <View style={styles.weatherRow}>
+            <Ionicons name="moon-outline" size={28} color="#000000" />
+            <Text style={styles.detail}>
+              Sunset: {new Date(sunriseData.sunsetTime).toLocaleTimeString()}
+            </Text>
+          </View>
+          <View style={styles.weatherRow}>
+            <Ionicons name="time-outline" size={28} color="#000000" />
+            <Text style={styles.detail}>
+              Day Length: {dayLengthHours}h {dayLengthMinutes}m
+            </Text>
+          </View>
         </View>
       </View>
     </ScrollView>

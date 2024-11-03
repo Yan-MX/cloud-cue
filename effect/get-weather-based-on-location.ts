@@ -1,6 +1,6 @@
-import {WeatherData} from "../types/api";
-import {transformWeatherData} from "../utils/mapping";
-import {WEATHER_BASE_URL} from "../utils/url";
+import { WeatherData } from "@constant/api";
+import { transformWeatherData } from "@utils/mapping";
+import { WEATHER_BASE_URL } from "@utils/url";
 
 export async function fetchWeatherData(
   lat: number,

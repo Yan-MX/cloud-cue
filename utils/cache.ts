@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {fetchSunriseData} from "../effect/get-sunrise-based-on-location";
+import { fetchSunriseData } from "@effect/get-sunrise-based-on-location";
 
 const CACHE_KEY_PREFIX = "sunriseDataCache";
 

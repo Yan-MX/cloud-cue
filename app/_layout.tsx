@@ -1,8 +1,8 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import {SplashScreen, Stack} from "expo-router";
-import {useEffect} from "react";
-import {StyleSheet, TouchableOpacity, View} from "react-native";
-import {WeatherProvider} from "../context/WeatherContext";
+import { SplashScreen, Stack } from "expo-router";
+import { useEffect } from "react";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { WeatherProvider } from "@context/WeatherContext";
 
 export default function AppLayout() {
   const loaded = true;
@@ -21,13 +21,13 @@ export default function AppLayout() {
         screenOptions={{
           headerShown: true,
           headerTransparent: true,
-          header: ({navigation, route}) => (
+          header: ({ navigation, route }) => (
             <View style={styles.header}>
               {route.name !== "index" && (
                 <TouchableOpacity
                   onPress={() => navigation.goBack()}
                   style={styles.backButton}
-                  hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}
+                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                 >
                   <View style={styles.backButtonInner}>
                     <Ionicons name="arrow-back" size={24} color="#000000" />

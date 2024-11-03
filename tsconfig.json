@@ -3,7 +3,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "../*": ["src/*"]
+      "@components/*": ["components/*"],
+      "@utils/*": ["utils/*"],
+      "@app/*": ["app/*"],
+      "@context/*": ["context/*"],
+      "@effect/*": ["effect/*"],
+      "@constant/*": ["constant/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]

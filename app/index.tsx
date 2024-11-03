@@ -7,11 +7,12 @@ import {
   Text,
   View,
 } from "react-native";
-import WeatherSimpleCard from "../components/WeatherSimpleCard";
-import {useWeather} from "../context/WeatherContext";
-import Error from "../components/Error";
+import WeatherSimpleCard from "@components/WeatherSimpleCard";
+import { useWeather } from "@context/WeatherContext";
+import Error from "@components/Error";
+
 const Home = () => {
-  const {weatherDataByLocation, error} = useWeather();
+  const { weatherDataByLocation, error } = useWeather();
 
   if (error) {
     return <Error message={error} />;
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: "#DE0000",
     opacity: 0.1,
-    transform: [{rotate: "45deg"}],
+    transform: [{ rotate: "45deg" }],
   },
   triangle: {
     position: "absolute",
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     backgroundColor: "#DE0000",
-    transform: [{rotate: "90deg"}],
+    transform: [{ rotate: "90deg" }],
   },
 });
 

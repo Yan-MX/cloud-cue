@@ -6,19 +6,19 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-import {useRouter} from "expo-router";
-import {WeatherData} from "../types/api";
-import {Ionicons} from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { WeatherData } from "@constant/api";
+import { Ionicons } from "@expo/vector-icons";
 
 interface WeatherCardProps {
   city: string;
   weather: WeatherData;
 }
 
-const {width} = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 const cardWidth = width * 0.85;
 
-export default function WeatherSimpleCard({weather, city}: WeatherCardProps) {
+export default function WeatherSimpleCard({ weather, city }: WeatherCardProps) {
   const router = useRouter();
 
   if (!weather) return null;
@@ -30,7 +30,7 @@ export default function WeatherSimpleCard({weather, city}: WeatherCardProps) {
   return (
     <TouchableOpacity onPress={handlePress} style={styles.cardContainer}>
       <View style={styles.yellowAccent} />
-      <View style={[styles.card, {width: cardWidth}]}>
+      <View style={[styles.card, { width: cardWidth }]}>
         <View style={styles.header}>
           <Text style={styles.location}>{city}</Text>
           <Text style={styles.temperature}>

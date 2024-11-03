@@ -4,7 +4,7 @@ import {
   TimePeriod,
   WeatherData,
   WeatherDetails,
-} from "../types/api";
+} from "@constant/api";
 
 export function transformSunriseData(
   data: any,
@@ -48,7 +48,7 @@ export function transformWeatherData(
 }
 
 export function getWeatherDescription(symbolCode: string): string {
-  const descriptionMap: {[key: string]: string} = {
+  const descriptionMap: { [key: string]: string } = {
     clearsky_day: "Clear sky",
     clearsky_night: "Clear night",
     cloudy: "Cloudy",

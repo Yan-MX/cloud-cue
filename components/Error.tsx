@@ -1,12 +1,12 @@
 import React from "react";
-import {StyleSheet, Text, View} from "react-native";
-import {Ionicons} from "@expo/vector-icons";
+import { StyleSheet, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 interface ErrorProps {
   message: string;
 }
 
-const Error: React.FC<ErrorProps> = ({message}) => {
+const Error: React.FC<ErrorProps> = ({ message }) => {
   return (
     <View style={styles.container}>
       <View style={styles.backgroundShapes}>

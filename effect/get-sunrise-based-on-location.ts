@@ -1,6 +1,6 @@
-import {transformSunriseData} from "../utils/mapping";
-import {SunriseData} from "../types/api";
-import {SUNRISE_BASE_URL} from "../utils/url";
+import { transformSunriseData } from "@utils/mapping";
+import { SunriseData } from "@constant/api";
+import { SUNRISE_BASE_URL } from "@utils/url";
 
 export async function fetchSunriseData(
   lat: number,
@@ -16,7 +16,7 @@ export async function fetchSunriseData(
     const data = await response.json();
     return transformSunriseData(data, lat, lon);
   } catch (error) {
-    console.error("Error fetching sunrise data:", error);
+    console.info("Error fetching sunrise data:", error);
     throw error;
   }
 }
