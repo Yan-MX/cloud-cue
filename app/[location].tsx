@@ -7,6 +7,7 @@ import { SunriseData } from "../types/api";
 import { fetchAndCacheSunriseData, getCachedSunriseData } from "../utils/cache";
 import Error from "../components/Error";
 export default function WeatherDetailBasedOnLocation() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loadingSunriseData, setLoadingSunriseData] = useState(true);
   const { location } = useLocalSearchParams();
   const [errorSunrise, setErrorSunrise] = useState<string | null>(null)

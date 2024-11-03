@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SunriseData, TimePeriod, WeatherData, WeatherDetails } from "../types/api";
 
 export function transformSunriseData(
@@ -10,7 +11,8 @@ export function transformSunriseData(
 
   return {
     sunriseTime: new Date(currentSunriseData.time),
-    sunsetTime: new Date(currentSunsetData.time),
+    sunsetTim
+    e: new Date(currentSunsetData.time),
     lat: lat,
     lon: lon,
   };
