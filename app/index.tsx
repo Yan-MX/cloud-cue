@@ -1,10 +1,16 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import WeatherSimpleCard from '../components/WeatherSimpleCard';
 import { useWeather } from '../context/WeatherContext';
-
+import Error from '../components/Error';
 const Home = () => {
-  const { weatherDataByLocation } = useWeather();
+  const { weatherDataByLocation ,error} = useWeather();
+
+  if(error){
+    return (
+      <Error message={error} />
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -18,8 +24,8 @@ const Home = () => {
 
       {!weatherDataByLocation || Object.keys(weatherDataByLocation).length === 0 ? (
         <View style={styles.loadingContainer}>
-          <View style={styles.loadingSquare} />
-        </View>
+        <ActivityIndicator size="large" color="#DE0000" />
+      </View>
       ) : (
         <ScrollView
           contentContainerStyle={styles.scrollContainer}
@@ -106,7 +112,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     backgroundColor: '#DE0000',
-    animation: 'rotate 2s linear infinite',
+    transform: [{ rotate: '90deg' }],
   },
 });
 

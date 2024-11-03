@@ -82,8 +82,9 @@ const WeatherDetail: React.FC<WeatherDetailProps> = ({ weatherData, sunriseData,
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    paddingVertical: 120,
+    paddingHorizontal: 16,
+    paddingTop: 120,
+    paddingBottom: 400
   },
   backgroundShapes: {
     position: 'absolute',

@@ -10,6 +10,8 @@ interface WeatherContextProps {
   weatherDataByLocation: WeatherDataByLocation;
   setMyLocations: (locations: MyLocation[]) => void;
   setWeatherDataByLocation: Dispatch<SetStateAction<WeatherDataByLocation>>;
+  error: string | null;
+  setError: Dispatch<SetStateAction<string | null>>;
 }
 
 const WeatherContext = createContext<WeatherContextProps | undefined>(undefined);
@@ -30,7 +32,7 @@ interface WeatherProviderProps {
 export const WeatherProvider: React.FC<WeatherProviderProps> = ({ children }) => {
   const [myLocations, setMyLocations] = useState<MyLocation[]>([berlin, london]);
   const [weatherDataByLocation, setWeatherDataByLocation] = useState<WeatherDataByLocation>({});
-
+  const[error, setError] = useState<string | null>(null);
 // add current location to myLocations
   useEffect(() => {
     const fetchCurrentLocation = async () => {
@@ -41,7 +43,7 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({ children }) =>
           ...prevLocations,
         ]);
       } catch (error) {
-        console.error('Error fetching current location:', error);
+       setError(error.message);
       }
     };
     fetchCurrentLocation();
@@ -62,14 +64,14 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({ children }) =>
 
         setWeatherDataByLocation(weatherDataMap);
       } catch (error) {
-        console.error('Error fetching weather data:', error);
+        setError(error.message);
       }
     };
     fetchWeatherDataForLocations();
   }, [myLocations]);
 
   return (
-    <WeatherContext.Provider value={{ myLocations, weatherDataByLocation, setMyLocations, setWeatherDataByLocation }}>
+    <WeatherContext.Provider value={{ myLocations, weatherDataByLocation, setMyLocations, setWeatherDataByLocation,error,setError }}>
       {children}
     </WeatherContext.Provider>
   );

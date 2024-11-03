@@ -1,30 +1,36 @@
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { StyleSheet, View, ActivityIndicator } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import WeatherDetail from "../components/WeatherDetail";
 import { useWeather } from "../context/WeatherContext";
-import { fetchSunriseData } from "../effect/get-sunrise-based-on-location";
-import { SunriseData, WeatherData } from "../types/api";
-
+import { SunriseData } from "../types/api";
+import { fetchAndCacheSunriseData, getCachedSunriseData } from "../utils/cache";
+import Error from "../components/Error";
 export default function WeatherDetailBasedOnLocation() {
-  const [loadingWeatherData, setLoadingWeatherData] = useState(true);
   const [loadingSunriseData, setLoadingSunriseData] = useState(true);
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const { location } = useLocalSearchParams();
+  const [errorSunrise, setErrorSunrise] = useState<string | null>(null)
   const { myLocations, weatherDataByLocation } = useWeather();
   const currentLocation = myLocations.find((loc) => loc.name === location);
   const currentWeatherData = weatherDataByLocation[currentLocation.name];
   const [sunriseData, setSunriseData] = useState<SunriseData | null>(null);
 
+
+
+
   const loadSunriseData = async () => {
     try {
-      const data = await fetchSunriseData(
-        currentLocation.lat,
-        currentLocation.lon
-      );
-      setSunriseData(data);
+      const location = `${currentLocation.lat},${currentLocation.lon}`;
+      const cachedData = await getCachedSunriseData(location);
+
+      if (cachedData) {
+        setSunriseData(cachedData);
+      } else {
+        const data = await fetchAndCacheSunriseData(currentLocation.lat, currentLocation.lon);
+        setSunriseData(data);
+      }
     } catch (error) {
-      console.error("Error loading sunrise data in detail page:", error);
+      setErrorSunrise(error.message);
     } finally {
       setLoadingSunriseData(false);
     }
@@ -34,6 +40,11 @@ export default function WeatherDetailBasedOnLocation() {
     loadSunriseData();
   }, []);
 
+  if(errorSunrise){
+    return (
+        <Error message={errorSunrise} />
+    );
+  }
   return (
     <View style={styles.container}>
       <View style={styles.backgroundShapes}>
