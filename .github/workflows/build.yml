@@ -26,5 +26,5 @@ jobs:
         run: npm run build
       - name: Run lint to check code quality
         run: npm run lint --if-present
-#    - name: Run tests
-#      run: npm test
+      - name: Run tests
+        run: npm test
