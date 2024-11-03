@@ -33,25 +33,28 @@ https://github.com/user-attachments/assets/226f3e17-274f-41d1-9d74-1c9c3bd9a4ec
 
 5. **Context and Provider** 🏗️: Given the need to access weather data for all cities from the dashboard, as well as for the detailed weather page, I created a Weather Context Provider. This provider wraps the entire app, reducing unnecessary API calls and simplifying data handling across components.
 
-6. **Continuous Integration with GitHub Actions** ⚙️: I configured GitHub Actions to automate the build process, ensuring that the app can build reliably with each commit.
 
-7. **Add ESLint and Prettier** ✨: After implementing the CI pipeline, I added support for ESLint and Prettier to enhance code quality and maintainability, ensuring consistent styling and preventing common coding errors.
+6. **Cache for API Calls** 🗄️: I added caching for the sunrise API calls, ensuring that data is stored locally and not called again within the same day. This optimization improves performance and reduces unnecessary network requests.
 
-8. **Error Handling** ⚠️: I incorporated basic error handling mechanisms to manage potential API errors, enhancing the overall user experience by ensuring that the app responds gracefully to issues.
+7. **Continuous Integration with GitHub Actions** ⚙️: I configured GitHub Actions to automate the build process, ensuring that the app can build reliably with each commit.
 
-9. **Styling** 🎨: I focused on styling the user interface to make it visually appealing and easy to navigate, utilizing a Bauhaus-inspired design aesthetic for clarity and simplicity.
+8. **Add ESLint and Prettier** ✨: After implementing the CI pipeline, I added support for ESLint and Prettier to enhance code quality and maintainability, ensuring consistent styling and preventing common coding errors.
 
-10. **Testing** 🧪: I added unit tests and functional tests to ensure that the app’s components work as intended, thereby improving code reliability and stability.
+9. **Error Handling** ⚠️: I incorporated basic error handling mechanisms to manage potential API errors, enhancing the overall user experience by ensuring that the app responds gracefully to issues.
+
+10. **Styling** 🎨: I focused on styling the user interface to make it visually appealing and easy to navigate, utilizing a Bauhaus-inspired design aesthetic for clarity and simplicity.
+
+11. **Testing** 🧪: I added unit tests and functional tests to ensure that the app’s components work as intended, thereby improving code reliability and stability.
     
 ## Potential Improvements
 
-1. Location Permission Handling: I would implement a feature to handle cases where users deny location permissions. In such scenarios, the app could display a list of other cities, ensuring users still have access to weather information.
+1. **Location Permission Handling** ❌📍: I would implement a feature to handle cases where users deny location permissions. In such scenarios, the app could display a list of other cities, ensuring users still have access to weather information.
 
-2. Refresh Functionality: Adding a refresh button or enable drag down to fetch the latest weather data would enhance user experience
+2. **Refresh Functionality** 🔄: Adding a refresh button or enabling drag-down functionality to fetch the latest weather data would enhance the user experience by allowing users to quickly update the information.
 
-3. City List Management: The city is currently hard coded with London and Berlin. It would be nice add functionality to allow users to manage their city list, including adding or deleting cities as desired. 
+3. **City List Management** 🏙️: The city list is currently hard-coded with London and Berlin. It would be beneficial to add functionality that allows users to manage their city list, including the ability to add or delete cities as desired.
 
-4. Internationalization Support: Implementing language support for internationalization would make the app more accessible to a broader audience. 
+4. **Internationalization Support** 🌍: Implementing language support for internationalization would make the app more accessible to a broader audience, ensuring that users can interact with the app in their preferred language.
 
 
 
