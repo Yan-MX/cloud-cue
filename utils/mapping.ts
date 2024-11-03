@@ -11,8 +11,7 @@ export function transformSunriseData(
 
   return {
     sunriseTime: new Date(currentSunriseData.time),
-    sunsetTim
-    e: new Date(currentSunsetData.time),
+    sunsetTime: new Date(currentSunsetData.time),
     lat: lat,
     lon: lon,
   };
