@@ -33,32 +33,25 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({ children }) =>
   const [myLocations, setMyLocations] = useState<MyLocation[]>([berlin, london]);
   const [weatherDataByLocation, setWeatherDataByLocation] = useState<WeatherDataByLocation>({});
   const[error, setError] = useState<string | null>(null);
-// add current location to myLocations
-  useEffect(() => {
-    const fetchCurrentLocation = async () => {
-      try {
-        const location = await getCurrentLocation();
-        setMyLocations(prevLocations => [
-          { name: 'My Location', lat: location.latitude, lon: location.longitude },
-          ...prevLocations,
-        ]);
-      } catch (error) {
-       setError(error.message);
-      }
-    };
-    fetchCurrentLocation();
-  }, []);
 
-  // fetch weather data for all locations
   useEffect(() => {
-    const fetchWeatherDataForLocations = async () => {
+    const fetchCurrentLocationAndWeatherData = async () => {
       try {
+        // Fetch current location
+        const location = await getCurrentLocation();
+        const updatedLocations = [
+          { name: 'My Location', lat: location.latitude, lon: location.longitude },
+          ...myLocations,
+        ];
+        setMyLocations(updatedLocations);
+
+        // Fetch weather data for all locations
         const data = await Promise.all(
-          myLocations.map(location => fetchWeatherData(location.lat, location.lon))
+          updatedLocations.map(location => fetchWeatherData(location.lat, location.lon))
         );
 
         const weatherDataMap: WeatherDataByLocation = {};
-        myLocations.forEach((location, index) => {
+        updatedLocations.forEach((location, index) => {
           weatherDataMap[location.name] = data[index];
         });
 
@@ -67,8 +60,9 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({ children }) =>
         setError(error.message);
       }
     };
-    fetchWeatherDataForLocations();
-  }, [myLocations]);
+
+    fetchCurrentLocationAndWeatherData();
+  }, []);
 
   return (
     <WeatherContext.Provider value={{ myLocations, weatherDataByLocation, setMyLocations, setWeatherDataByLocation,error,setError }}>
