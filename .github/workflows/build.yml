@@ -1,0 +1,30 @@
+name: build check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Install the dependencies
+      run: npm ci
+    - name: Build the app
+      run: npm run build
+    - name: Run lint to check code quality
+      run: npm run lint --if-present
+#    - name: Run tests
+#      run: npm test
