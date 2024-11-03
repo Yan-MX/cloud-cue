@@ -16,7 +16,7 @@ export interface WeatherDetails {
   relative_humidity: number;
   wind_speed: number;
   ultraviolet_index_clear_sky: number;
-  air_pressure_at_sea_level
+  air_pressure_at_sea_level;
 }
 
 export interface TimePeriod {

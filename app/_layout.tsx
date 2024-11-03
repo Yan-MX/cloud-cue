@@ -1,8 +1,8 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { WeatherProvider } from '../context/WeatherContext';
+import Ionicons from "@expo/vector-icons/Ionicons";
+import {SplashScreen, Stack} from "expo-router";
+import {useEffect} from "react";
+import {StyleSheet, TouchableOpacity, View} from "react-native";
+import {WeatherProvider} from "../context/WeatherContext";
 
 export default function AppLayout() {
   const loaded = true;
@@ -21,13 +21,13 @@ export default function AppLayout() {
         screenOptions={{
           headerShown: true,
           headerTransparent: true,
-          header: ({ navigation, route }) => (
+          header: ({navigation, route}) => (
             <View style={styles.header}>
-              {route.name !== 'index' && (
-                <TouchableOpacity 
-                  onPress={() => navigation.goBack()} 
+              {route.name !== "index" && (
+                <TouchableOpacity
+                  onPress={() => navigation.goBack()}
                   style={styles.backButton}
-                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                  hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}
                 >
                   <View style={styles.backButtonInner}>
                     <Ionicons name="arrow-back" size={24} color="#000000" />
@@ -39,17 +39,17 @@ export default function AppLayout() {
           ),
         }}
       >
-        <Stack.Screen 
-          name="index" 
-          options={{ 
-            headerShown: false 
-          }} 
+        <Stack.Screen
+          name="index"
+          options={{
+            headerShown: false,
+          }}
         />
-        <Stack.Screen 
-          name="[location]" 
+        <Stack.Screen
+          name="[location]"
           options={{
             headerShown: true,
-            title: '',
+            title: "",
           }}
         />
       </Stack>
@@ -59,19 +59,19 @@ export default function AppLayout() {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 16,
     paddingTop: 50,
-    position: 'relative',
+    position: "relative",
   },
   headerAccent: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     height: 4,
-    backgroundColor: '#DE0000',
+    backgroundColor: "#DE0000",
   },
   backButton: {
     zIndex: 10,
@@ -79,10 +79,10 @@ const styles = StyleSheet.create({
   backButtonInner: {
     width: 40,
     height: 40,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderWidth: 2,
-    borderColor: '#000000',
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderColor: "#000000",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

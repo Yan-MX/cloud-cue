@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SunriseData, TimePeriod, WeatherData, WeatherDetails } from "../types/api";
+import {
+  SunriseData,
+  TimePeriod,
+  WeatherData,
+  WeatherDetails,
+} from "../types/api";
 
 export function transformSunriseData(
   data: any,
   lat: number,
-  lon: number
+  lon: number,
 ): SunriseData {
   const currentSunriseData = data.properties.sunrise;
   const currentSunsetData = data.properties.sunset;
@@ -20,12 +25,13 @@ export function transformSunriseData(
 export function transformWeatherData(
   data: any,
   lat: number,
-  lon: number
+  lon: number,
 ): WeatherData {
   const currentWeather = data.properties.timeseries[0];
   const details: WeatherDetails = currentWeather.data.instant?.details;
   const next1Hour: TimePeriod = currentWeather.data.next_1_hours?.summary || {};
-  const next6Hours: TimePeriod = currentWeather.data.next_6_hours?.details || {};
+  const next6Hours: TimePeriod =
+    currentWeather.data.next_6_hours?.details || {};
 
   return {
     temperature: details.air_temperature,
@@ -42,7 +48,7 @@ export function transformWeatherData(
 }
 
 export function getWeatherDescription(symbolCode: string): string {
-  const descriptionMap: { [key: string]: string } = {
+  const descriptionMap: {[key: string]: string} = {
     clearsky_day: "Clear sky",
     clearsky_night: "Clear night",
     cloudy: "Cloudy",

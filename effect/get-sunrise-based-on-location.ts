@@ -1,11 +1,10 @@
-import { transformSunriseData } from "../utils/mapping";
-import { SunriseData } from "../types/api";
-import { SUNRISE_BASE_URL } from "../utils/url";
-
+import {transformSunriseData} from "../utils/mapping";
+import {SunriseData} from "../types/api";
+import {SUNRISE_BASE_URL} from "../utils/url";
 
 export async function fetchSunriseData(
   lat: number,
-  lon: number
+  lon: number,
 ): Promise<SunriseData> {
   try {
     const response = await fetch(`${SUNRISE_BASE_URL}?lat=${lat}&lon=${lon}`, {
@@ -21,4 +20,3 @@ export async function fetchSunriseData(
     throw error;
   }
 }
-

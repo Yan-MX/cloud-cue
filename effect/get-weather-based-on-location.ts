@@ -1,10 +1,10 @@
-import { WeatherData } from "../types/api";
-import { transformWeatherData } from "../utils/mapping";
-import { WEATHER_BASE_URL } from "../utils/url";
+import {WeatherData} from "../types/api";
+import {transformWeatherData} from "../utils/mapping";
+import {WEATHER_BASE_URL} from "../utils/url";
 
 export async function fetchWeatherData(
   lat: number,
-  lon: number
+  lon: number,
 ): Promise<WeatherData> {
   try {
     const response = await fetch(`${WEATHER_BASE_URL}?lat=${lat}&lon=${lon}`, {
@@ -20,4 +20,3 @@ export async function fetchWeatherData(
     throw error;
   }
 }
-

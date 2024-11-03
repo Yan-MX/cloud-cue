@@ -1,18 +1,24 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
-import { useRouter } from 'expo-router';
-import { WeatherData } from '../types/api';
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
+import {useRouter} from "expo-router";
+import {WeatherData} from "../types/api";
+import {Ionicons} from "@expo/vector-icons";
 
 interface WeatherCardProps {
   city: string;
   weather: WeatherData;
 }
 
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get("window");
 const cardWidth = width * 0.85;
 
-export default function WeatherSimpleCard({ weather, city }: WeatherCardProps) {
+export default function WeatherSimpleCard({weather, city}: WeatherCardProps) {
   const router = useRouter();
 
   if (!weather) return null;
@@ -24,10 +30,12 @@ export default function WeatherSimpleCard({ weather, city }: WeatherCardProps) {
   return (
     <TouchableOpacity onPress={handlePress} style={styles.cardContainer}>
       <View style={styles.yellowAccent} />
-      <View style={[styles.card, { width: cardWidth }]}>
+      <View style={[styles.card, {width: cardWidth}]}>
         <View style={styles.header}>
           <Text style={styles.location}>{city}</Text>
-          <Text style={styles.temperature}>{Math.round(weather.temperature)}°C</Text>
+          <Text style={styles.temperature}>
+            {Math.round(weather.temperature)}°C
+          </Text>
         </View>
 
         <View style={styles.details}>
@@ -47,54 +55,54 @@ export default function WeatherSimpleCard({ weather, city }: WeatherCardProps) {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    position: 'relative',
+    position: "relative",
     marginBottom: 16,
   },
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderWidth: 2,
-    borderColor: '#000000',
+    borderColor: "#000000",
     padding: 16,
     height: 110,
   },
   yellowAccent: {
-    position: 'absolute',
+    position: "absolute",
     top: 4,
     right: -4,
     width: 8,
-    height: '100%',
-    backgroundColor: '#FFD700',
+    height: "100%",
+    backgroundColor: "#FFD700",
     zIndex: -1,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 16,
   },
   location: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: "700",
     letterSpacing: 1,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
   },
   temperature: {
     fontSize: 24,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   details: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    flexDirection: "row",
+    justifyContent: "flex-start",
     gap: 16,
   },
   detailRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   detailText: {
     marginLeft: 8,
     fontSize: 14,
-    color: '#000000',
-    fontWeight: '500',
+    color: "#000000",
+    fontWeight: "500",
   },
 });
